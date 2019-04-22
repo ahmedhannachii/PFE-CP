@@ -91,25 +91,23 @@ class ProfilUser extends Component {
           return (
             
             <div>
-              {console.log("ok", data)}   
               <h2> Welcome {data.me.userName}  </h2>
       <table>
       <p>Edit Profile</p>
 
         <tbody>
          <td> <Create className="update" onClick={()=> this.updateUser(user)}> Update</Create></td>
-         <tr> <th>User Name</th> <td><div className="info">{data.me.userName}</div></td></tr> 
-         <tr> <th>Last Name</th> <td><div className="info">{data.me.lastName}</div></td> </tr>
-         <tr> <th>Password</th>  <td><div className="info">{data.me.password}</div></td></tr>
+         <tr> <th>Nom d'utilisateur</th> <td><div className="info">{data.me.userName}</div></td></tr> 
+         <tr> <th>Nom de famille</th> <td><div className="info">{data.me.lastName}</div></td> </tr>
          <tr> <th>Email</th> <td><div className="info">{data.me.email}</div></td></tr>
-         <tr> <th>Date</th>  <td> <div className="info">{data.me.date}</div></td></tr>
+         <tr> <th>Date de naissance</th>  <td> <div className="info">{data.me.date}</div></td></tr>
 
-       </tbody>
+       </tbody>  
       </table>
       
       <Modal visible={open} width="400" height="600" effect="fadeInUp" onClickAway={this.handleClose}>
       <h3 className="employe">Modifier Profile </h3>
-        <ProfilUserUpdate close={this.handleClose} user={this.state.selectedUser}/>
+        <ProfilUserUpdate close={this.handleClose} user={data.me}/>
  
        </Modal>
      </div> 

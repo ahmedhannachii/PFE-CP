@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import {ADD_USER, USER_UPDATE} from '../graphql/usermutation';
+import {ADD_USER} from '../graphql/usermutation';
 import allUsers from "../graphql/user";
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
@@ -9,7 +9,6 @@ import AddIcon from '@material-ui/icons/Add';
 class AddUser extends Component {
   constructor(props){
     super(props);
-    if(props)
     this.state = {
       email : '',
       password : '',
@@ -19,15 +18,9 @@ class AddUser extends Component {
     }
   }
 
-  componentWillReceiveProps(props){
-    if (props.user){
-        const { me } = props;
-     this.setState({...me});
-    }
-  }
   handleChange = (event) =>{
-  const { target: {  name, value} } = event;
-  this.setState({[name]: value});
+    const { target: {  name, value} } = event;
+    this.setState({[name]: value});
   }
 
   add = async (ajout) =>{
@@ -39,17 +32,15 @@ class AddUser extends Component {
         this.props.close();
 
       } catch (error) {
-        // window.location.assign('/Login');
+       
       }
     }
   render() { 
-  const {id , email, password, userName, lastName, date }  = this.state;
-  const variables = id ? { id, email, password, userName, lastName, date }  : {  email, password, userName, lastName, date };
-  const action = id ? ADD_USER : USER_UPDATE ;
+  const {email, password, userName, lastName, date }  = this.state;
   return (
           <Wrapper>
-              <Mutation mutation={action} variables={{UserInput : {...variables}}} refetchQueries={[{ query: allUsers}]}  >
-                  {(Adduser)=>(
+              <Mutation mutation={ADD_USER} variables={{UserInput : {...this.state}}} refetchQueries={[{ query: allUsers}]}  >
+                  {(register)=>(
                       <form>
                         <h6>Register</h6>
                         <div>
@@ -61,7 +52,6 @@ class AddUser extends Component {
                               name ="email"
                               placeholder="Email"
                               type = "email"
-
                           />
                           </div>
                           <div>
@@ -71,9 +61,8 @@ class AddUser extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               name ="password"
-                              placeholder="Password"
+                              placeholder="Mot de passe"
                               type ="password"
-
                           />
                           </div>
                           <div>
@@ -83,7 +72,7 @@ class AddUser extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               name ="userName"
-                              placeholder="UserName"
+                              placeholder="Nom d'utilisateur"
                           />
                           </div>
                           <div>
@@ -93,8 +82,7 @@ class AddUser extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               name ="lastName"
-                              placeholder="LastName"
-
+                              placeholder="Nom de famille"
                           />
                           </div>
                           <div>
@@ -106,15 +94,12 @@ class AddUser extends Component {
                               name ="date"
                               placeholder="Date de naissance"
                               type= "Date"
-
                           />
                           </div>
                           
-                          <Button type="submit"  color="primary"  className="button"  onClick={()=>{this.add(Adduser)}} >
-                          Register 
-                          </Button>
-                          
-                          
+                          <Button type="submit"  color="primary"  className="button"  onClick={()=>{this.add(register)}} >
+                            Register 
+                          </Button>  
                     </form>
               )}
                 </Mutation>

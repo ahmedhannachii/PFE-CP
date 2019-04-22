@@ -44,7 +44,7 @@ return (
     <Route exact path="/Search" component={Search}/>
 
     <PrivateRoute exact path="/Home" component={Home} isConnected={isConnected}/>
-    <PrivateRoute  path="/MyProfile" component={Profile}isConnected={isConnected}/>
+    <PrivateRoute  path="/MyProfile" component={Profile} isConnected={isConnected}/>
     <PrivateRoute  path="/News" component={News}isConnected={isConnected}/>
 
     <PrivateRoute exact path="/Accueil" component={Accueil}isConnected={isConnected}/> 

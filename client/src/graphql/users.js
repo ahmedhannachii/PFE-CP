@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
 query allusers{
-  users{
+  users {
   id
   email
   password
@@ -10,7 +10,6 @@ query allusers{
   lastName
   date
   permission
-
 }
 }
 `;

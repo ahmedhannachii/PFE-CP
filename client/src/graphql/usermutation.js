@@ -3,19 +3,21 @@ import gql from 'graphql-tag';
 export const ADD_USER = gql`
 mutation register($UserInput: UserInput){
   register(input: $UserInput){
-  email
-  password
-  userName
-  lastName
-  date
+  token
+  user {
+    email
+    userName
+    lastName
+    date
+    permission
+  }
 }
 }
 `;
 export const USER_UPDATE = gql`
-mutation register($UserInput: UserInput){
-  register(input: $UserInput){
+mutation UpdateUser($input: UserUpdateInput){
+  updateUser(input: $input){
     email
-    password
     userName
     lastName
     date

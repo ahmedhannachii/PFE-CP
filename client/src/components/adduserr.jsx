@@ -14,6 +14,7 @@ class AddUserr extends Component {
     super(props);
     if(props)
     this.state = {
+      id: '',
       userName : '',
       lastName : '',
       email : '',
@@ -44,13 +45,13 @@ class AddUserr extends Component {
       }
     }
   render() { 
-  const { userName, lastName, email, date,permission } = this.state;
-  const variables = email ? { userName, lastName, email, date, permission } : { userName, lastName, email, date, permission };
-  const action = email ? UPDATE_USERR : ADD_USERR ;
+  const { id, userName, lastName, email, date,permission } = this.state;
+  const variables = { id, userName, lastName, email, date, permission };
+  const action = id ? UPDATE_USERR : ADD_USERR ;
   return (
           <Wrapper>
-              <Mutation mutation={action} variables={{UserrInput : {...variables}}} refetchQueries={[{ query: users}]}>
-                  {(addUser)=>(
+              <Mutation mutation={UPDATE_USERR} variables={{Input : {...variables}}} refetchQueries={[{ query: users}]}>
+                  {(updateUser)=>(
                       <div>
                           <TextField
                               label="UserName"
@@ -87,7 +88,7 @@ class AddUserr extends Component {
                               margin="normal"
                               name ="permission"
                           />
-                          <Fab  className="button" aria-label="Add" onClick={()=>{this.add(addUser)}}>
+                          <Fab  className="button" aria-label="Add" onClick={()=>{this.add(updateUser)}}>
                               <AddIcon />
                           </Fab>
                     </div>

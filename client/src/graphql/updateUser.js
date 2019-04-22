@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
 const UPDATE_USERR = gql`
-mutation updateUser($UserrInput: UserrInput){
-  updateUser(input: $UserrInput){
+mutation UpdateUser($Input: UserUpdateInput){
+  updateUser(input: $Input) {
+    id
     email
     userName
     lastName

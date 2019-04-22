@@ -2,14 +2,13 @@ import gql from 'graphql-tag';
 
 export default gql `
 query me{
-  me{
-  email
-  userName
-  lastName
-  date
-  password
- 
-}
+  me {
+    id
+    email
+    userName
+    lastName
+    date
+  }
 }
 `;
 

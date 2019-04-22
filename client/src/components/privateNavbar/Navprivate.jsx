@@ -5,7 +5,6 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home'
 import gql from 'graphql-tag';
 import Modal from 'react-awesome-modal';
-import AddUserr from '../adduserr';
 import { Mutation } from 'react-apollo';
 import styled from "styled-components";
 import ImageAvatars from "../avatar";
@@ -63,13 +62,6 @@ render () {
           </ul>
         </nav>
       </div>
-
-       
-       <Modal visible={open} width="400" height="600" effect="fadeInUp" onClickAway={this.handleClose}>
-      <h3 className="employe"> Ajouter un nouveau utilisateur Oyez </h3>
-        <AddUserr close={this.handleClose}/>
- 
-       </Modal>
       <div class="filler two" />
     </header>
   </Wrapper>

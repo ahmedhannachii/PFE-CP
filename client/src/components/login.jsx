@@ -5,11 +5,13 @@ import { Mutation, compose, graphql } from "react-apollo";
 import gql from "graphql-tag";
 
 const loginMutation = gql`
-  mutation Login($input: UserInput) {
+  mutation Login($input: LoginInput) {
     login(input: $input) {
       token
-      email
-      permission
+      user {
+        email
+        permission
+      }
     }
   }
 `;
@@ -37,7 +39,7 @@ class Login extends React.Component {
     const data = await fn(config);
      console.log("****",data);
     const jwToken = data.data.login.token ;
-    const permission = data.data.login.permission;
+    const permission = data.data.login.user.permission;
     if(jwToken && permission ==='USER'){
        window.alert("Bienvenue sur le comparateur oyez");
       await this.props.updateNetworkStatus(true);
@@ -52,6 +54,7 @@ class Login extends React.Component {
   };
   render() {
     const { login, password } = this.state;
+
     return (
       <Wrapper>
       <Mutation mutation={loginMutation}>
@@ -74,7 +77,7 @@ class Login extends React.Component {
                 type="password"
                 value={password}
                 onChange={this.handleChange}
-                placeholder="Password"
+                placeholder="Mot de passe"
               />
               
             </div>

@@ -44,7 +44,6 @@ class Profile extends Component {
       <Query query= {users}>
       {({loading, error, data})=>{
       if (loading) return(<CircularDeterminate/> );
-      console.log(error,'aaa')
       if (error) return (<h4> Error ... </h4>);
       const {open} = this.state;
       

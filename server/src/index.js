@@ -35,29 +35,30 @@ input NewsInput {
   input UserInput {
     email: String!
     password: String!
-    userName: String
+    userName: String!
     lastName: String
     date: String
     permission: String
   }
-  input UserrInput {
-    email: String
-    userName: String
+  input UserUpdateInput {
+    id: ID!
+    email: String!
+    userName: String!
     lastName: String
     date: String
     permission: String
   }
-  
-
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+  input passwordInput {
+    oldPassword: String!
+    newPassword: String!
+  }
   type UserLogged {
     token: String
-    email: String!
-    userName: String
-    lastName: String
-    date: String
-    password: String
-    permission: String
-
+    user: User
   }
   type News {
  id: ID
@@ -81,16 +82,15 @@ input NewsInput {
 
     users: [User]
     user(id:ID!): User
-    me: UserLogged
+    me: User
     news : [News]
   }
   type Mutation {
     addNews(input: NewsInput): News
     removeNews(id: ID!,): Boolean
     register(input: UserInput): UserLogged
-    login(input: UserInput): UserLogged
-    addUser(input: UserrInput ): User
-    updateUser(input: UserrInput): User
+    login(input: LoginInput): UserLogged
+    updateUser(input: UserUpdateInput): User
     removeUser(id: ID!): Boolean
   }
 
@@ -101,10 +101,8 @@ input NewsInput {
 const resolvers = {
   Query: {
     users: async (_, $, { models }) => {
-      const user = await models.User.find();
-      await setTimeout(() => {
-      }, 7000);
-      return user;
+      const users = await models.User.find();
+      return users;
     },
     me: (_, $, { models, userId }) => models.User.findOne({ _id: userId }),
 
@@ -134,16 +132,14 @@ const resolvers = {
     register: async (_, { input }, { models }) => {
       const hashPassword = await bcrypt.hash(input.password, 3);
       const user = new models.User({
-        email: input.email,
-        password: hashPassword,
-        userName: input.userName,
-        lastName: input.lastName,
-        date: input.date,
+        ...input,
+        password: hashPassword
       });
       await user.save();
       const token = generateToken(user.id, user.email);
-      return { token, email: user.email, userName: user.userName, lastName: user.lastName, date: user.date };
+      return { token, user };
     },
+
     login: async (_, { input }, { models }) => {
       // console.log(input);
       const currentUser = await models.User.findOne({ email: input.email });
@@ -155,24 +151,14 @@ const resolvers = {
         throw new Error('Wrong Password');
       }
       const token = generateToken(currentUser.id, currentUser.email, currentUser.permission);
-      return { token, email: currentUser.email, permission: currentUser.permission };
-    },
-
-    addUser: async (_, { input }, { models }) => {
-      const newUser = new models.User({
-        email: input.email,
-        userName: input.userName,
-        lastName: input.lastName,
-        date: input.date,
-      });
-      const UserAdded = await newUser.save();
-      // console.log('UserAdded', UserAdded);
-      return UserAdded;
+      return { token, user: currentUser };
     },
 
     updateUser: async (_, {input}) => {
-      const { email } = input;
-      const updateUser = await User.findOneAndUpdate({ email }, { $set: input }, {new: true});
+      console.log(input)
+      const { id } = input;
+      const updateUser = await User.findOneAndUpdate({ _id: id }, { $set: input }, {new: true});
+      console.log("TCL: updateUser", updateUser)  
       return updateUser;
     },
 
@@ -186,8 +172,8 @@ const resolvers = {
   },
 };
 
-// In the most basic sense, the ApolloServer can be started
-// by passing type definitions (typeDefs) and the resolvers
+// ApolloServer can be started
+// passing type definitions (typeDefs) and the resolvers
 // responsible for fetching the data for those types.
 const server = new ApolloServer({
   typeDefs,
