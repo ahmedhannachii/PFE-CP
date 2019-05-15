@@ -3,15 +3,20 @@ import { withRouter } from "react-router-dom";
 import React from 'react';
 
 import NavbarLanding from './NavbarLanding';
+import Usb from '../components/Usb';
 
 
-function Landing(props) {
+function Landing() {
   return (
 
     <Wrapper>
       <header>
         <NavbarLanding />
       </header>
+      <body>
+        <Usb/>
+      </body>
+     
     </Wrapper>
   );
 }

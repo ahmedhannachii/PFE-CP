@@ -4,11 +4,9 @@ import { withRouter } from "react-router-dom";
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home'
 import gql from 'graphql-tag';
-import Modal from 'react-awesome-modal';
-import { Mutation } from 'react-apollo';
 import styled from "styled-components";
 import ImageAvatars from "../avatar";
-import logout from "../../img/logout.png";
+
 
 
 const updateNetworkStatus = gql`

@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import SearchAppBar from './tessssst';
+import SearchAppBar from './SearchProduct';
 
 
 function NavbarLanding(props) {
@@ -13,7 +13,7 @@ function NavbarLanding(props) {
             <h4 className="oyez">Oyez</h4>
             <ul>
               <li> <SearchAppBar/> </li>
-              <li onClick={() => props.history.push("/Search")}>Recherche</li>
+  {/*<li onClick={() => props.history.push("/Search")}>Recherche</li> */}
               <li onClick={() => props.history.push("/Login")}>Authentification</li>
               <li onClick={() => props.history.push("/register")}>Inscription</li>
               <li>

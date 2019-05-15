@@ -38,7 +38,7 @@ class AddUserr extends Component {
       try {
         const result = await ajout();
         console.log('result', result);
-        window.alert('ok');
+        window.alert('Votre modification a été effectuée avec succès');
         this.props.close();
       } catch (error) {
         window.alert('error');
@@ -54,14 +54,14 @@ class AddUserr extends Component {
                   {(updateUser)=>(
                       <div>
                           <TextField
-                              label="UserName"
+                              label="Nom d'utilisateur"
                               value={userName}
                               onChange={this.handleChange}
                               margin="normal"
                               name ="userName"
                           />
                           <TextField
-                              label="LastName"
+                              label="Nom de famille"
                               value={lastName}
                               onChange={this.handleChange}
                               margin="normal"

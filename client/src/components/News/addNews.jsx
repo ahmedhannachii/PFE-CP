@@ -34,7 +34,7 @@ class AddNews extends Component {
       try {
         const result = await ajout();
         console.log('result', result);
-        window.alert('ok');
+        window.alert('Votre article a été ajouté avec succès ');
         this.props.close();
       } catch (error) {
         window.alert('error');

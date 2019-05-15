@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo';
 import styled from "styled-components";
 import ImageAvatars from "./avatar";
 import logout from "../img/logout.png";
+import SearchAppBar from './SearchProduct';
 
 const updateNetworkStatus = gql`
 mutation updateNetworkStatus($isConnected: bool){
@@ -24,15 +25,18 @@ function NavbarUser(props) {
           <nav id="navbar">
             <h4 className="oyez">Oyez</h4>
             <ul>
+              <li>
+               <SearchAppBar/>
+              </li>
               <li onClick={() => props.history.push("/Profil")}>
                 Profil
               </li>
               <li onClick={() => props.history.push("/NouveauProduit")}>
                 Nouveaux produits
               </li>
-              <li onClick={() => props.history.push("/Recherche")}>
+              {/*<li onClick={() => props.history.push("/Recherche")}>
                 Recherche
-              </li>
+  </li>*/}
               <li onClick={() => props.history.push("/About")}>
                 Qui Sommes-Nous
               </li>

@@ -70,7 +70,7 @@ class ProfilUser extends Component {
   }
   updateUser =  async (user)=>{ console.log('emp', user);
     await this.setState({ selectedUser: user}); 
-    this.setState({ open : true})
+    this.setState({ open : true});
   }
 
   render() {
@@ -93,7 +93,7 @@ class ProfilUser extends Component {
             <div>
               <h2> Welcome {data.me.userName}  </h2>
       <table>
-      <p>Edit Profile</p>
+      <p>Editer le profil</p>
 
         <tbody>
          <td> <Create className="update" onClick={()=> this.updateUser(user)}> Update</Create></td>
@@ -106,11 +106,10 @@ class ProfilUser extends Component {
       </table>
       
       <Modal visible={open} width="400" height="600" effect="fadeInUp" onClickAway={this.handleClose}>
-      <h3 className="employe">Modifier Profile </h3>
-        <ProfilUserUpdate close={this.handleClose} user={data.me}/>
- 
-       </Modal>
-     </div> 
+      <h3 className="employe">Modifier Profil </h3>
+        <ProfilUserUpdate close={this.handleClose} user={data.me}/> 
+      </Modal>
+      </div> 
      )
         }}
       </Query>

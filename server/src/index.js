@@ -28,7 +28,7 @@ function verifyToken(token) {
 const typeDefs = gql`
 input NewsInput {
  titre : String! 
- description: String 
+ description : String 
  image : String 
  prix : String
 }
@@ -191,7 +191,7 @@ const server = new ApolloServer({
 });
 
 // This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
+// can utilize middleware options
 mongoose.connect('mongodb://localhost:27017/training', { useNewUrlParser: true })
   .then(() => {
     console.log('connected to mongodb');

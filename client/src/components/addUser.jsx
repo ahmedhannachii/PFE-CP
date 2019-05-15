@@ -4,7 +4,9 @@ import {ADD_USER} from '../graphql/usermutation';
 import allUsers from "../graphql/user";
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
-import AddIcon from '@material-ui/icons/Add';
+
+
+// register
 
 class AddUser extends Component {
   constructor(props){

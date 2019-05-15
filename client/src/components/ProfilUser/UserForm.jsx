@@ -84,7 +84,7 @@ export default UserForm;
 const Wrapper = styled.div`
 button{
   top: 200px;
-    left: -30px;
+    left: 175px;
     align-content: center;
     align-self: auto;
     color: #fff;

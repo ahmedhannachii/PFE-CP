@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import NavbarUser from "./navbarUser";
+import Usb from "../components/Usb"
 
 function Accueil() {
   return (
@@ -9,6 +10,9 @@ function Accueil() {
       <header>
         <NavbarUser />
       </header>
+      <tbody>
+        <Usb/>
+    </tbody>
     </Wrapper>
   );
 }
@@ -98,11 +102,11 @@ padding: 8px;
 
 nav ul li {
   display: inline-block;
-  padding: 0 2.2em;
+  padding: 0 1.2em;
   line-height: 3em;
   font-family: 'Poppins',sans-serif
 }
-
+ 
 nav ul li:hover {
   background: #D3D3D3	;
 }

@@ -38,8 +38,6 @@ const styles = theme => ({
     display: 'inline-block',
     minHeight: 800,
 
-
-
   },
   media: {
     margin: "0 auto",

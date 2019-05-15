@@ -10,10 +10,10 @@ import Navprivate from "./privateNavbar/Navprivate";
 import Create from '@material-ui/icons/Create';
 import Modal from 'react-awesome-modal';
 import DeleteIcon from '@material-ui/icons/Delete';
-import updateUser from '../graphql/updateUser';
+
 
 const handleDelete = removeUser => {
-const confirmDelete = window.confirm("vous êtes sur le point de supprimer un utilisateur ! ");
+const confirmDelete = window.confirm("vous êtes sur le point de supprimer un client ! ");
     if (confirmDelete) {
       removeUser().then(({data}) => {
         console.log(data);
@@ -79,14 +79,14 @@ return (
 <Wrapper>
   <Navprivate />
     <br></br>
-    <h2> Liste des Utilisateurs Oyez </h2>
+    <h2> Liste des clients Oyez </h2>
       <table>
        <thead>
          <tr>
-           <th>User Name</th>
-           <th>Last Name</th>
+           <th>Nom d'utilisateur</th>
+           <th>Nom de famille</th>
            <th>Email</th>
-           <th>Date</th>
+           <th>Date de naissance</th>
            <th>permission</th>
          </tr>
        </thead>

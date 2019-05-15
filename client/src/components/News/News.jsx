@@ -19,7 +19,7 @@ const styles = theme => ({
   },
   media: {
     margin: "0 auto",
-    height: 300,
+    height: 250,
   },
   actions: {
     display: "flex"
