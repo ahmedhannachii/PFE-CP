@@ -17,7 +17,7 @@ import NewsUser from './components/NewsUser/NewsUser';
 import Recherche from './components/Recherche';
 import About from './components/About';
 import Contact from './components/Contact';
-
+import Categories from './components/Categories';
 
 const connectedQuery = gql`
 query connectQuery{
@@ -44,7 +44,7 @@ return (
     <Route exact path="/Search" component={Search}/>
 
     <PrivateRoute exact path="/Home" component={Home} isConnected={isConnected}/>
-    <PrivateRoute  path="/MyProfile" component={Profile} isConnected={isConnected}/>
+    <PrivateRoute  path="/Categories" component={Categories} isConnected={isConnected}/>
     <PrivateRoute  path="/News" component={News}isConnected={isConnected}/>
 
     <PrivateRoute exact path="/Accueil" component={Accueil}isConnected={isConnected}/> 

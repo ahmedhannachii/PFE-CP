@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from './models/user';
 import News from './models/news';
-
+import Categories from './models/categories';
 
 // generate token
 const SECRET = 'mysecret';
@@ -56,6 +56,9 @@ input NewsInput {
     oldPassword: String!
     newPassword: String!
   }
+  input CategoriesInput {
+    titre: String! 
+  }
   type UserLogged {
     token: String
     user: User
@@ -78,22 +81,29 @@ input NewsInput {
     permission: String
   }
 
+  type Categories {
+ id: ID
+ titre: String! 
+  }
+
   type Query {
 
     users: [User]
     user(id:ID!): User
     me: User
     news : [News]
+    categories: [Categories]
   }
   type Mutation {
     addNews(input: NewsInput): News
-    removeNews(id: ID!,): Boolean
+    removeNews(id: ID!): Boolean
     register(input: UserInput): UserLogged
     login(input: LoginInput): UserLogged
     updateUser(input: UserUpdateInput): User
     removeUser(id: ID!): Boolean
+    addCategories(input: CategoriesInput): Categories
+    removeCategories(id: ID!): Boolean
   }
-
 `;
 
 // resolvers
@@ -110,6 +120,10 @@ const resolvers = {
     news : async (_, $, {models}) => {
       const article = await models.News.find();
     return article;
+    },
+    categories : async (_, $, {models}) => {
+      const categorie = await models.Categories.find();
+    return categorie;
     },
   },
   Mutation: {
@@ -167,8 +181,17 @@ const resolvers = {
       await User.findByIdAndRemove(id);
       return true;
     },
-
-
+    addCategories: async (_, { input }, { models }) =>{
+      const categorie = new models.Categories({
+        titre: input.titre,
+      })
+     const addCategories =  await categorie.save();
+      return addCategories;
+    },
+    removeCategories: async (_, { id }) => {
+      await Categories.findByIdAndRemove(id);
+      return true;
+    },
   },
 };
 
@@ -184,7 +207,8 @@ const server = new ApolloServer({
       userId,
       models: {
         User,
-        News
+        News,
+        Categories
       },
     };
   },

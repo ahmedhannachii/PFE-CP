@@ -12,7 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import beinData from './Scraper/bein.json';
+import pc from '../Scraper/Pc portable';
+import Media from './Media';
 
 const styles = theme => ({
   card: {
@@ -21,9 +22,11 @@ const styles = theme => ({
     //padding: 15,
     border: "1px solid #000; border-width: 1px 1px 1px",
     marginBottom: 20,
-    marginLeft: 27,
+    marginLeft: 31,
     width: 'calc(100% / 6)',
-    display: 'inline-block',
+    display: 'inline-block', 
+    verticalAlign: 'top',
+    minHeight: 425
   
   },
   media: {
@@ -33,6 +36,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
+    zIndex: 999999
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -50,7 +54,7 @@ const styles = theme => ({
 });
 
 
-class Usb extends Component {
+class PC extends Component {
   state = { expanded: 0 , toggle : false };
 
   handleExpandClick = (index) => {
@@ -59,11 +63,12 @@ class Usb extends Component {
 
   render() {
     const { classes } = this.props;
+    
     return (
       <div >
       <h1  style={{textAlign:'center'}} > Vous pouvez trouver les prix les moins chers en tunisie en 1 click </h1>
-      {beinData.map((beinX, index) => (
-        <Card className={classes.card}>
+      {pc.map((beinX, index) => (
+        <Card className={classes.card} >
         
           <CardHeader
             avatar={
@@ -73,13 +78,9 @@ class Usb extends Component {
             }
   
             title={beinX.$title}
-            subheader= {beinX.$prix}
+            subheader= {beinX.$prix1}
           />
-          <CardMedia
-            className={classes.media}
-            image={beinX.$image}
-            title={beinX.$title}
-          />
+         <Media image={beinX.$image} image1={beinX.$image1} image2={beinX.$image2} prix1={beinX.$prix1} prix2={beinX.$prix2} title={beinX.$title}/>
   
           <CardActions className={classes.actions} disableActionSpacing>
             <Typography component="p">
@@ -111,8 +112,8 @@ class Usb extends Component {
   }
 }
 
-Usb.propTypes = {
+PC.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Usb);
+export default withStyles(styles)(PC);

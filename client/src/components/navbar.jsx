@@ -22,8 +22,8 @@ function Navbar(props) {
           <nav id="navbar">
             <h4 className="oyez">Oyez</h4>
             <ul>
-              <li onClick={() => props.history.push("/MyProfile")}>
-                Liste des clients
+              <li onClick={() => props.history.push("/Categories")}>
+                Liste des catégories
               </li>
               <li onClick={() => props.history.push("/News")}>
                 Liste des articles

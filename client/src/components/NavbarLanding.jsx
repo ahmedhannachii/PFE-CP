@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import SearchAppBar from './SearchProduct';
-
+import MenuList from './MenuList';
 
 function NavbarLanding(props) {
   return (
@@ -13,11 +13,10 @@ function NavbarLanding(props) {
             <h4 className="oyez">Oyez</h4>
             <ul>
               <li> <SearchAppBar/> </li>
+              <li> <MenuList/> </li>
   {/*<li onClick={() => props.history.push("/Search")}>Recherche</li> */}
               <li onClick={() => props.history.push("/Login")}>Authentification</li>
               <li onClick={() => props.history.push("/register")}>Inscription</li>
-              <li>
-              </li>
             </ul>
           </nav>
         </div>

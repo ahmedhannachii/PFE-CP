@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { graphql,Mutation, Query } from "react-apollo";
-import {Link} from 'react-router-dom';
-import AddUserr from './adduserr';
-import users from "../graphql/users";
-import DELETE_USERR from '../graphql/deleteUser';
+import { Mutation, Query } from "react-apollo";
+import GET_CATEGORIES from "../graphql/getCategories";
+import REMOVE_CATEGORIES from '../graphql/removeCategories';
 import CircularDeterminate from "./loading";
 import Navprivate from "./privateNavbar/Navprivate";
-import Create from '@material-ui/icons/Create';
-import Modal from 'react-awesome-modal';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const handleDelete = removeUser => {
-const confirmDelete = window.confirm("vous êtes sur le point de supprimer un client ! ");
+const handleDelete = removeCategories => {
+const confirmDelete = window.confirm("vous êtes sur le point de supprimer une catégorie ! ");
     if (confirmDelete) {
-      removeUser().then(({data}) => {
+      removeCategories().then(({data}) => {
         console.log(data);
       }
       );
@@ -23,88 +19,64 @@ const confirmDelete = window.confirm("vous êtes sur le point de supprimer un cl
   };
 
 
-class Profile extends Component {
+class Categories extends Component {
   constructor(props){
     super(props);
-    this.state = {open: false, selectedUser: null} 
   } 
-  handleClose = () => {
-    console.log('tyest');
-    const { open } = this.state;
-    this.setState({
-      open: !open
-    })
-  }
-  updateUser =  async (user)=>{ console.log('emp', user);
-    await this.setState({ selectedUser: user}); 
-    this.setState({ open : true})
-  }
   render () {
     return (
-      <Query query= {users}>
-      {({loading, error, data})=>{
-      if (loading) return(<CircularDeterminate/> );
-      if (error) return (<h4> Error ... </h4>);
-      const {open} = this.state;
-      
-const userView = data.users.map(user => (
-  <tr>
-  
-    <td><Link style={{ textDecoration: 'none', color: 'black' }} to={`/gallery/${user.id}`}> <div className="info">{user.userName}</div></Link></td>
-    <td> <div className="info">{user.lastName}</div></td>
-    
-    <td><div className="info">{user.email}</div></td>
-    <td><div className="info">{user.date}</div></td>
-    <td><div className="info">{user.permission}</div></td>
-    
-    <Mutation mutation={DELETE_USERR} variables={{id : user.id}} refetchQueries={[{ query: users}]}>
- {removeUser => 
-   (
-     <td> <div className="button" aria-label="Add" onClick={()=>handleDelete(removeUser)}  >
-         <DeleteIcon/>
-          </div>
-     </td>
-     
-   )
- }
- </Mutation>
- <td >  <Create className="update" onClick={()=> this.updateUser(user)}> Update</Create>
- </td>
+      <Query query= {GET_CATEGORIES}>
+      {
+        ({loading, error, data})=> {
+          if (loading) return(<CircularDeterminate/> );
+          if (error) return (<h4> Error ... </h4>);
+          
+          const categoryView = data.categories.map(category => (
+            <tr>
+            
+              <td><div className="info">{category.titre}</div></td>
+              
+              <Mutation mutation={REMOVE_CATEGORIES} variables={{id : category.id}} refetchQueries={[{ query: GET_CATEGORIES}]}>
+                {
+                  removeCategories => 
+                  (
+                    <td> 
+                      <div className="button" aria-label="Add" onClick={()=>handleDelete(removeCategories)}  >
+                        <DeleteIcon/>
+                      </div>
+                    </td>
+                    
+                  )
+                }
+              </Mutation>
+          </tr>
+          ))
 
- </tr>
-
-))
-
-return (
-<Wrapper>
-    <br></br>
-    <h2> Liste des clients Oyez </h2>
-      <table>
-       <thead>
-         <tr>
-           <th>Nom d'utilisateur</th>
-           <th>Nom de famille</th>
-           <th>Email</th>
-           <th>Date de naissance</th>
-           <th>permission</th>
-         </tr>
-       </thead>
-       <tbody>
-        {userView}
-       </tbody>
-      </table>
-      <Modal visible={open} width="400" height="600" effect="fadeInUp" onClickAway={this.handleClose}>
-      <h3 className="employe">Modifier un utilisateur Oyez </h3>
-        <AddUserr close={this.handleClose} user={this.state.selectedUser}/>
- 
-       </Modal>
-</Wrapper>
-);}}
+          return (
+            <Wrapper>
+              <Navprivate />
+                <br></br>
+                <h2> Liste des Catégories </h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nom de la catégorie</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {categoryView}
+                    </tbody>
+                  </table>
+            </Wrapper>
+          );
+        }
+      }
       </Query>
     );
   }
 }
-export default graphql(users)(Profile);
+
+export default Categories;
 
 const Wrapper = styled.div`
 .update{

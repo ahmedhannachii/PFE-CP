@@ -5,9 +5,9 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home'
 import gql from 'graphql-tag';
 import styled from "styled-components";
+import AddCategory from '../addCategory';
 import ImageAvatars from "../avatar";
-
-
+import Modal from 'react-awesome-modal';
 
 const updateNetworkStatus = gql`
 mutation updateNetworkStatus($isConnected: bool){
@@ -16,7 +16,6 @@ mutation updateNetworkStatus($isConnected: bool){
   }
 }
 `
-
 
 class ButtonAppBar extends Component {
   
@@ -35,37 +34,34 @@ class ButtonAppBar extends Component {
     })
   }
 
-
 render () {
   const { open } = this.state;
   return (
     <Wrapper>
-    <header>
-      <div className="filler one">
-        <nav id="navbar">
-         
-          <h4 className="oyez">Oyez</h4>
-          <ul>
-            <li>
-              <Home className="pa" fontSize="large"  onClick={() => this.props.history.push("/home")}/>
-            </li>
-            <li>
-              <PersonAdd className="pa" fontSize="large"  onClick= {this.handleClose} />
-            </li>
-            <li>
-              <ImageAvatars />
-            </li>
-
-            
-          </ul>
-        </nav>
-      </div>
-      <div class="filler two" />
-    </header>
-  </Wrapper>
-      
-   
-
+      <header>
+        <div className="filler one">
+          <nav id="navbar">
+            <h4 className="oyez">Oyez</h4>
+            <ul>
+              <li>
+                <Home className="pa" fontSize="large"  onClick={() => this.props.history.push("/home")}/>
+              </li>
+              <li>
+                <PersonAdd className="pa" fontSize="large"  onClick= {this.handleClose} />
+              </li>
+              <li>
+                <ImageAvatars />
+              </li>
+            </ul>
+          </nav>
+        </div>
+          <Modal visible={open} width="400" height="600" effect="fadeInUp" onClickAway={this.handleClose}>
+            <h3 className="employe">Ajouter une catégorie </h3>
+            <AddCategory close={this.handleClose} />
+          </Modal>
+        <div class="filler two" />
+      </header>
+    </Wrapper>
   );
 }
 }

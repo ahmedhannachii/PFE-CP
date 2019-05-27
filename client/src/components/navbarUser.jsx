@@ -6,6 +6,7 @@ import styled from "styled-components";
 import ImageAvatars from "./avatar";
 import logout from "../img/logout.png";
 import SearchAppBar from './SearchProduct';
+import MenuList from './MenuList';
 
 const updateNetworkStatus = gql`
 mutation updateNetworkStatus($isConnected: bool){
@@ -27,6 +28,9 @@ function NavbarUser(props) {
             <ul>
               <li>
                <SearchAppBar/>
+              </li>
+              <li>
+                <MenuList/>
               </li>
               <li onClick={() => props.history.push("/Profil")}>
                 Profil
@@ -59,8 +63,6 @@ function NavbarUser(props) {
             </ul>
           </nav>
         </div>
-
-        <div class="filler two" />
       </header>
     </Wrapper>
   );
@@ -147,7 +149,7 @@ padding: 8px;
 
 nav ul li {
   display: inline-block;
-  padding: 0 2em;
+  padding: 0 1em;
   line-height: 3em;
   font-family: 'Poppins',sans-serif;
   vertical-align: middle;

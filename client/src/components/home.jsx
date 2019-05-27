@@ -2,12 +2,14 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./navbar";
+import Profile from './profile';
 
 function Home() {
   return (
     <Wrapper>
       <header>
         <Navbar />
+        <Profile />
       </header>
     </Wrapper>
   );

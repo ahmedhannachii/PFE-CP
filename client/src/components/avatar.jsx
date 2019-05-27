@@ -24,7 +24,7 @@ class imageAvatars extends PureComponent {
   }
 
   render(){
-    const { open } = this.state;
+  const { open } = this.state;
     if (this.props.data.loading) return <p>loading...</p>
     console.log(this.props.data)
   const { userName } = this.props.data.me;
@@ -43,7 +43,7 @@ class imageAvatars extends PureComponent {
                     <ul>
                         <p>Mes coordonnées : </p> <hr/>
                         <li>
-                        <p>{userName}</p> 
+                        <p>{userName}</p>
                         </li>
                         <li>
                         <p>Email : {email}</p>
